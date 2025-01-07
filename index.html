@@ -6,9 +6,14 @@
   <title>Algorithm Game</title>
  
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Agu+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Agu+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Algorithm Game</h1>
+  <h1 class="agu-display">Algorithm Game</h1>
   <p>
     Meet the Scarlet Ibis, a curious bird eager to attend classes at UWI and learn about the world of algorithms and computational thinking. 
     But like many of us, this little ibis tends to create its own obstacles, making the journey to its goal more challenging than it needs to be.
@@ -32,6 +37,20 @@
         <li><strong>Add obstacles:</strong> Click on the grid to place barriers and make the path more challenging.</li>
         <li><strong>Customize your journey:</strong> Create custom functions like <code>turn right</code> to simplify complex moves.</li>
         <li><strong>Reset the game:</strong> Refresh the page to reset the board and start anew.</li>
+      </ul>
+      <h3>Syntax for Defining Functions:</h3>
+      <ul>
+        <li>Start with the keyword <code>function</code>, followed by the function name and a colon:</li>
+        <pre><code>function turn_right:</code></pre>
+        <li>List the commands for the function, one per line, indented beneath the function definition:</li>
+        <pre><code>function turn_right:
+    turn left
+    turn left
+    turn left</code></pre>
+        <li>Once defined, call your custom function like any other command:</li>
+        <pre><code>move
+  turn_right
+  move</code></pre>
       </ul>
       <h3>Built-in Constraints:</h3>
       <ul>

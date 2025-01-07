@@ -16,6 +16,15 @@ body {
     margin-top: 20px;
   }
   
+h1 {
+  font-family: 'Agu-Display', sans-serif;
+}
+
+.agu-display {
+  font-family: 'Agu Display', serif; /* Use 'serif' as a fallback */
+  font-weight: 400; /* Default weight */
+  font-style: normal; /* Default style */
+}
 /* General button styling */
 button {
   padding: 10px 15px;
