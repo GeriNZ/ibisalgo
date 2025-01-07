@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  canvas {
+    border: 1px solid black;
+    margin-top: 20px;
+  }
+  
+  textarea {
+    width: 80%;
+    height: 100px;
+    margin-top: 20px;
+  }
+  
+/* General button styling */
+button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Instructions container */
+#instructions-container {
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  padding: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Instructions styling */
+#instructions {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  text-align: left; /* Ensure all paragraphs are left-aligned */
+}
+
+#instructions h2 {
+  font-size: 20px;
+  color: #343a40;
+  margin-bottom: 15px;
+}
+
+#instructions h3 {
+  font-size: 18px;
+  color: #495057;
+  margin-top: 20px;
+}
+
+#instructions ul {
+  padding-left: 20px;
+  margin-bottom: 15px;
+}
+
+#instructions li {
+  margin-bottom: 10px;
+  color: #212529;
+  font-size: 15px;
+}
+
+#instructions p {
+  font-size: 15px;
+  color: #495057;
+  margin-top: 15px;
+}

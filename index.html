@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algorithm Game</title>
+ 
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Algorithm Game</h1>
+  <p>
+    Meet the Scarlet Ibis, a curious bird eager to attend classes at UWI and learn about the world of algorithms and computational thinking. 
+    But like many of us, this little ibis tends to create its own obstacles, making the journey to its goal more challenging than it needs to be.
+  </p>
+  <p>
+    Your mission? Guide the Scarlet Ibis through the maze of obstacles to reach the UWI logo safely and efficiently. With your help, 
+    this determined bird can overcome the barriers and get the education it deserves!
+  </p>
+  <div id="instructions-container">
+    <button id="toggle-instructions">Show Instructions</button>
+    <div id="instructions" style="display: none;">
+      <h2>Welcome to Your Algorithm Adventure!</h2>
+      <p>
+        Embark on an exciting challenge where you’ll guide the Scarlet Ibis to its goal—the UWI logo. 
+        Along the way, you’ll sharpen your computational thinking and programming skills.
+      </p>
+      <h3>How to Play:</h3>
+      <ul>
+        <li><strong>Write your code:</strong> Use the commands <code>move</code> and <code>turn left</code> to guide the bird.</li>
+        <li><strong>Plan carefully:</strong> The goal is to reach the UWI logo in a single flawless attempt.</li>
+        <li><strong>Add obstacles:</strong> Click on the grid to place barriers and make the path more challenging.</li>
+        <li><strong>Customize your journey:</strong> Create custom functions like <code>turn right</code> to simplify complex moves.</li>
+        <li><strong>Reset the game:</strong> Refresh the page to reset the board and start anew.</li>
+      </ul>
+      <h3>Built-in Constraints:</h3>
+      <ul>
+        <li>You can only use two basic commands: <code>move</code> (to move forward) and <code>turn left</code> (to turn 90 degrees counterclockwise).</li>
+        <li>Commands are case-sensitive—spelling matters!</li>
+        <li>Each function or command must be placed on its own line.</li>
+      </ul>
+      <h3>Pro Tips:</h3>
+      <ul>
+        <li>Think logically: Break the path into small steps before writing your code.</li>
+        <li>Challenge yourself: Add creative obstacle patterns and test your strategies.</li>
+        <li>Experiment and learn: Use trial and error to refine your logic.</li>
+      </ul>
+      <p>
+        This game is part of the course <strong>Technology Practicum in Communication Studies: Computational Thinking and Tools</strong>. 
+        It’s designed to give you hands-on experience with algorithms and problem-solving, essential skills for modern communication professionals.
+      </p>
+      <p>Are you ready to take on the challenge? Let’s get started!</p>
+    </div>
+  </div>
+  
+  
+  <canvas id="gameCanvas" width="500" height="500"></canvas>
+  <textarea id="codeInput" placeholder="Write your commands here..."></textarea>
+  <button id="runCode">Run Code</button>
+  <script src="script.js"></script>
+</body>
+</html>
