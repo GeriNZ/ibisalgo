@@ -32,65 +32,68 @@
       </p>
       
       <h3>Beginners</h3>
-      <p>Use only the two basic commands:</p>
+  <p>Use only the two basic commands:</p>
+  <ul>
+    <li><code>move</code>: Moves the bird forward one cell.</li>
+    <li><code>turn left</code>: Turns the bird 90° counterclockwise.</li>
+  </ul>
+  
+  <h3>Intermediate</h3>
+  <p>Enhance your code with control structures and egg commands:</p>
+  <ul>
+    <li>
+      <strong>For-loops:</strong> Repeat commands a set number of times.
+      <pre><code>for 3:
+    turn left
+    move</code></pre>
+    </li>
+    <li>
+      <strong>While-loops:</strong> Execute commands repeatedly while a condition holds.
+      <pre><code>while front_clear:
+    move</code></pre>
+    </li>
+    <li>
+      <strong>If/Else Conditions:</strong> Choose different actions based on a condition.
+      <pre><code>if front_clear:
+    move
+else:
+    turn left</code></pre>
+    </li>
+    <li>
+      <strong>Egg Commands:</strong>
       <ul>
-        <li>
-          <code>move</code>: Moves the bird forward by one cell.
-        </li>
-        <li>
-          <code>turn left</code>: Turns the bird 90° counterclockwise.
-        </li>
+        <li><code>lay egg</code>: Place an egg on the current cell.</li>
+        <li><code>pick up egg</code>: Remove an egg from the current cell.</li>
       </ul>
-      <p>
-        Plan your steps carefully and use these commands to navigate through obstacles.
-      </p>
-      
-      <h3>Intermediate</h3>
-      <p>Enhance your code with control structures and egg commands:</p>
-      <ul>
-        <li>
-          <strong>For-loops:</strong> Repeat a block of commands a set number of times.
-          <br>
-          <code>for 3:</code> (followed by indented commands)
-          <pre><code>for 3:
-        turn left
-        move</code></pre>
-        </li>
-        <li>
-          <strong>While-loops:</strong> Execute commands repeatedly as long as a condition is met.
-          <br>
-          <code>while front_clear:</code> (followed by indented commands)
-          <pre><code>while front_clear:
-        move</code></pre>
-        </li>
-        <li>
-          <strong>Egg Commands:</strong> 
-          <ul>
-            <li><code>lay egg</code>: Drop an egg on the current cell.</li>
-            <li><code>pick up egg</code>: Remove an egg from the current cell (if one exists).</li>
-          </ul>
-          Use these to mark your path or create patterns.
-        </li>
-      </ul>
-      
-      <h3>Expert</h3>
-      <p>Combine custom functions with loops and egg commands to solve challenging puzzles:</p>
-      <ul>
-        <li>
-          <strong>Custom Functions:</strong> Define your own set of commands to simplify complex sequences.
-          <br>
-          Define a function with:
-          <pre><code>function turn_right:
-        turn left
-        turn left
-        turn left</code></pre>
-          Then, call it in your main code by simply writing:
-          <pre><code>turn_right</code></pre>
-        </li>
-        <li>
-          Mix functions with loops and basic commands to create intricate patterns and sophisticated algorithms.
-        </li>
-      </ul>
+    </li>
+  </ul>
+  
+  <h3>Expert</h3>
+  <p>Take your coding to the next level by combining control structures, egg commands, and custom functions:</p>
+  <ul>
+    <li>
+      <strong>Custom Functions:</strong> Define functions using:
+      <pre><code>function turn_right:
+    turn left
+    turn left
+    turn left</code></pre>
+      Call them later in your code simply by using the function name:
+      <pre><code>turn_right</code></pre>
+    </li>
+    <li>
+      <strong>Layered Instructions:</strong> Create sophisticated behaviors by nesting control structures within your custom functions. For example, you can use if/else statements and loops inside a function:
+      <pre><code>function smart_move:
+    if front_clear:
+        move
+    else:
+        for 2:
+            turn left
+            if front_clear:
+                move</code></pre>
+      This allows you to handle complex scenarios with a single function call.
+    </li>
+    <li>Combine loops, conditionals, and custom functions to solve advanced puzzles.</li>
+  </ul>
       <p>
         Experiment and have fun on your algorithm adventure!
       </p>

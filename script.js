@@ -63,7 +63,6 @@ function drawGrid() {
     const centerX = egg.x * cellSize + cellSize / 2;
     const centerY = egg.y * cellSize + cellSize / 2;
     ctx.beginPath();
-    // Draw an oval egg.
     ctx.ellipse(centerX, centerY, cellSize / 4, cellSize / 3, 0, 0, 2 * Math.PI);
     ctx.fillStyle = 'yellow';
     ctx.fill();
@@ -94,26 +93,26 @@ function layEgg() {
 
 // Picks up an egg from the current player location (if one exists).
 function pickUpEgg() {
-  // Look for an egg at the player's current cell.
   for (let i = eggs.length - 1; i >= 0; i--) {
     if (eggs[i].x === player.x && eggs[i].y === player.y) {
-      eggs.splice(i, 1); // Remove one egg from the cell.
-      break; // Remove only one egg per command.
+      eggs.splice(i, 1); // Remove one egg.
+      break;
     }
   }
   drawGrid();
   drawPlayer();
 }
 
-// -------------------- Parsing Code with Loops & Functions --------------------
+// -------------------- Parsing Code with Loops, Conditionals & Functions --------------------
 
 /*
-  The parseBlock function reads lines of code (from the text area) and converts them into
-  a commands array. It supports:
+  The parseBlock function reads lines of code and converts them into a commands array.
+  It supports:
     - for-loops (e.g., "for 3:" followed by an indented block)
     - while-loops (e.g., "while front_clear:" followed by an indented block)
+    - if/else conditions (e.g., "if front_clear:" with an optional "else:" block)
     - Custom function definitions (allowed only at the top level)
-    - Regular commands (like "move", "turn left", "lay egg", or "pick up egg")
+    - Regular commands (like "move", "turn left", "lay egg", "pick up egg")
 */
 function parseBlock(lines, start, baseIndent) {
   let commands = [];
@@ -126,7 +125,7 @@ function parseBlock(lines, start, baseIndent) {
       continue;
     }
 
-    // Determine the indentation (assume a tab = 4 spaces).
+    // Determine indentation (assume a tab = 4 spaces)
     let indent = 0;
     for (let ch of line) {
       if (ch === ' ') {
@@ -150,17 +149,15 @@ function parseBlock(lines, start, baseIndent) {
       let count = parseInt(countStr);
       if (isNaN(count)) count = 0;
       i++;
-      // Parse the block inside the for-loop (should be indented one level more)
       let { commands: loopCommands, nextIndex } = parseBlock(lines, i, indent + 1);
       i = nextIndex;
-      // Unroll the loop by repeating its commands count times.
       for (let j = 0; j < count; j++) {
         commands.push(...loopCommands);
       }
     }
     // Handle while-loops (syntax: "while front_clear:")
     else if (trimmed.startsWith("while ")) {
-      let conditionPart = trimmed.substring(6); // Remove "while "
+      let conditionPart = trimmed.substring(6);
       if (conditionPart.endsWith(":")) {
         conditionPart = conditionPart.slice(0, -1).trim();
       }
@@ -171,6 +168,43 @@ function parseBlock(lines, start, baseIndent) {
         type: "while",
         condition: conditionPart.toLowerCase(),
         commands: whileCommands
+      });
+    }
+    // Handle if/else conditions (syntax: "if front_clear:" with optional "else:")
+    else if (trimmed.startsWith("if ")) {
+      let conditionPart = trimmed.substring(3);
+      if (conditionPart.endsWith(":")) {
+        conditionPart = conditionPart.slice(0, -1).trim();
+      }
+      i++;
+      let { commands: thenCommands, nextIndex } = parseBlock(lines, i, indent + 1);
+      i = nextIndex;
+      let elseCommands = [];
+      // Check if next line is an else block at the same indent level.
+      if (i < lines.length) {
+        let nextLine = lines[i];
+        let elseIndent = 0;
+        for (let ch of nextLine) {
+          if (ch === ' ') {
+            elseIndent++;
+          } else if (ch === '\t') {
+            elseIndent += 4;
+          } else {
+            break;
+          }
+        }
+        if (nextLine.trim().startsWith("else:") && elseIndent === indent) {
+          i++; // Skip the "else:" line.
+          let { commands: elseBlockCommands, nextIndex: newIndex } = parseBlock(lines, i, indent + 1);
+          elseCommands = elseBlockCommands;
+          i = newIndex;
+        }
+      }
+      commands.push({
+        type: "if",
+        condition: conditionPart.toLowerCase(),
+        thenCommands: thenCommands,
+        elseCommands: elseCommands
       });
     }
     // Handle function definitions (syntax: "function turn_right:")
@@ -187,19 +221,17 @@ function parseBlock(lines, start, baseIndent) {
         i++;
       }
     }
-    // Otherwise, it's a regular command.
+    // Otherwise, treat as a regular command.
     else {
       commands.push(trimmed.toLowerCase());
       i++;
     }
   }
-
   return { commands, nextIndex: i };
 }
 
-// The main parseCode function resets customFunctions and returns the main commands.
 function parseCode(input) {
-  customFunctions = {}; // Reset previously defined custom functions.
+  customFunctions = {}; // Reset custom functions.
   const lines = input.split('\n');
   let { commands: mainCommands } = parseBlock(lines, 0, 0);
   return { mainCommands, functions: customFunctions };
@@ -208,8 +240,8 @@ function parseCode(input) {
 // -------------------- Evaluating Conditions --------------------
 
 /*
-  Currently, the only supported condition is "front_clear". This function returns true if
-  the cell in front of the player is clear (i.e. within bounds and not blocked by an obstacle).
+  Currently, the only supported condition is "front_clear".
+  This function returns true if the cell in front of the player is clear.
 */
 function evaluateCondition(condition) {
   if (condition === "front_clear") {
@@ -222,14 +254,11 @@ function evaluateCondition(condition) {
     const move = directions[player.direction];
     const newX = player.x + move.dx;
     const newY = player.y + move.dy;
-    if (
+    return (
       newX >= 0 && newX < gridSize &&
       newY >= 0 && newY < gridSize &&
       !obstacles.some(obstacle => obstacle.x === newX && obstacle.y === newY)
-    ) {
-      return true;
-    }
-    return false;
+    );
   }
   return false;
 }
@@ -240,22 +269,21 @@ function evaluateCondition(condition) {
   The executeCommands function processes the parsed commands sequentially.
   It handles:
     - Built-in commands ("move", "turn left", "lay egg", "pick up egg")
-    - Custom function calls (by checking customFunctions)
-    - While-loops (by evaluating conditions at runtime)
+    - Custom function calls
+    - Control structures: while-loops and if/else conditions
 */
 function executeCommands(commands) {
-  const commandQueue = [...commands]; // Create a copy of the commands array
+  const commandQueue = [...commands];
 
   function processNextCommand() {
-    if (commandQueue.length === 0) return; // No more commands.
+    if (commandQueue.length === 0) return;
 
     const command = commandQueue.shift();
 
-    // Handle while-loop command objects.
+    // Handle while-loops.
     if (typeof command === 'object' && command.type === "while") {
       if (evaluateCondition(command.condition)) {
-        // If condition is true, schedule the loop block commands and re-add the loop.
-        commandQueue.unshift(command);
+        commandQueue.unshift(command); // Re-add for subsequent evaluations.
         commandQueue.unshift(...command.commands);
         processNextCommand();
         return;
@@ -264,14 +292,22 @@ function executeCommands(commands) {
         return;
       }
     }
-
-    // If the command matches a custom function name, insert its commands.
+    // Handle if/else conditions.
+    if (typeof command === 'object' && command.type === "if") {
+      if (evaluateCondition(command.condition)) {
+        commandQueue.unshift(...command.thenCommands);
+      } else {
+        commandQueue.unshift(...command.elseCommands);
+      }
+      processNextCommand();
+      return;
+    }
+    // Handle custom function calls.
     if (typeof command === 'string' && customFunctions[command]) {
       commandQueue.unshift(...customFunctions[command]);
       processNextCommand();
       return;
     }
-
     // Execute built-in commands.
     if (command === 'move') {
       const directions = [
@@ -283,8 +319,6 @@ function executeCommands(commands) {
       const moveDir = directions[player.direction];
       const newX = player.x + moveDir.dx;
       const newY = player.y + moveDir.dy;
-
-      // Check for a valid move (within bounds and no obstacles)
       if (
         newX >= 0 && newX < gridSize &&
         newY >= 0 && newY < gridSize &&
@@ -299,22 +333,16 @@ function executeCommands(commands) {
       drawGrid();
       drawPlayer();
       setTimeout(processNextCommand, 400);
-    }
-    // New command: Lay Egg.
-    else if (command === 'lay egg') {
+    } else if (command === 'lay egg') {
       layEgg();
       setTimeout(processNextCommand, 0);
-    }
-    // New command: Pick Up Egg.
-    else if (command === 'pick up egg') {
+    } else if (command === 'pick up egg') {
       pickUpEgg();
       setTimeout(processNextCommand, 0);
     } else {
-      // Skip any unrecognized command.
       setTimeout(processNextCommand, 0);
     }
   }
-
   processNextCommand();
 }
 
@@ -324,20 +352,16 @@ function animateMove(startX, startY, endX, endY, step = 0, callback) {
   const totalSteps = 10;
   const deltaX = ((endX - startX) * cellSize) / totalSteps;
   const deltaY = ((endY - startY) * cellSize) / totalSteps;
-
   if (step <= totalSteps) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawGrid();
-
     const currentX = startX * cellSize + deltaX * step;
     const currentY = startY * cellSize + deltaY * step;
-
     ctx.save();
     ctx.translate(currentX + cellSize / 2, currentY + cellSize / 2);
     ctx.rotate((-player.direction * Math.PI) / 2);
     ctx.drawImage(ibisImage, -cellSize / 2, -cellSize / 2, cellSize, cellSize);
     ctx.restore();
-
     setTimeout(() => animateMove(startX, startY, endX, endY, step + 1, callback), 50);
   } else {
     player.x = endX;
@@ -354,12 +378,8 @@ function placeObstacle(event) {
   const rect = canvas.getBoundingClientRect();
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;
-
-  // Convert pixel coordinates to grid coordinates.
   const gridX = Math.floor(x / cellSize);
   const gridY = Math.floor(y / cellSize);
-
-  // Prevent placing obstacles on the player's or goal's cell.
   if (
     (gridX === player.x && gridY === player.y) ||
     (gridX === goal.x && gridY === goal.y) ||
@@ -367,7 +387,6 @@ function placeObstacle(event) {
   ) {
     return;
   }
-
   obstacles.push({ x: gridX, y: gridY });
   drawGrid();
   drawPlayer();
@@ -378,7 +397,6 @@ canvas.addEventListener('click', placeObstacle);
 document.getElementById('toggle-instructions').addEventListener('click', () => {
   const instructions = document.getElementById('instructions');
   const button = document.getElementById('toggle-instructions');
-
   if (instructions.style.display === 'none') {
     instructions.style.display = 'block';
     button.textContent = 'Hide Instructions';
