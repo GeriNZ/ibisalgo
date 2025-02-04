@@ -27,49 +27,75 @@
     <div id="instructions" style="display: none;">
       <h2>Welcome to Your Algorithm Adventure!</h2>
       <p>
-        Embark on an exciting challenge where you’ll guide the Scarlet Ibis to its goal—the UWI logo. 
-        Along the way, you’ll sharpen your computational thinking and programming skills.
+        Guide the Scarlet Ibis to the UWI logo using your coding skills. Choose a challenge level that suits you:
+     For all levels: Click on the grid to place obstacles. Don't like the current layout? Refresh the page to start fresh. You should try to write out your full programm and for Scarlet to arrive at her destination in one go. You can tinker with your code as much as you like to make sure she gets to UWI!
       </p>
-      <h3>How to Play:</h3>
+      
+      <h3>Beginners</h3>
+      <p>Use only the two basic commands:</p>
       <ul>
-        <li><strong>Write your code:</strong> Use the commands <code>move</code> and <code>turn left</code> to guide the bird.</li>
-        <li><strong>Plan carefully:</strong> The goal is to reach the UWI logo in a single flawless attempt.</li>
-        <li><strong>Add obstacles:</strong> Click on the grid to place barriers and make the path more challenging.</li>
-        <li><strong>Customize your journey:</strong> Create custom functions like <code>turn right</code> to simplify complex moves.</li>
-        <li><strong>Reset the game:</strong> Refresh the page to reset the board and start anew.</li>
-      </ul>
-      <h3>Syntax for Defining Functions:</h3>
-      <ul>
-        <li>Start with the keyword <code>function</code>, followed by the function name and a colon:</li>
-        <pre><code>function turn_right:</code></pre>
-        <li>List the commands for the function, one per line, indented beneath the function definition:</li>
-        <pre><code>function turn_right:
-    turn left
-    turn left
-    turn left</code></pre>
-        <li>Once defined, call your custom function like any other command:</li>
-        <pre><code>move
-  turn_right
-  move</code></pre>
-      </ul>
-      <h3>Built-in Constraints:</h3>
-      <ul>
-        <li>You can only use two basic commands: <code>move</code> (to move forward) and <code>turn left</code> (to turn 90 degrees counterclockwise).</li>
-        <li>Commands are case-sensitive—spelling matters!</li>
-        <li>Each function or command must be placed on its own line.</li>
-      </ul>
-      <h3>Pro Tips:</h3>
-      <ul>
-        <li>Think logically: Break the path into small steps before writing your code.</li>
-        <li>Challenge yourself: Add creative obstacle patterns and test your strategies.</li>
-        <li>Experiment and learn: Use trial and error to refine your logic.</li>
+        <li>
+          <code>move</code>: Moves the bird forward by one cell.
+        </li>
+        <li>
+          <code>turn left</code>: Turns the bird 90° counterclockwise.
+        </li>
       </ul>
       <p>
-        This game is part of the course <strong>Technology Practicum in Communication Studies: Computational Thinking and Tools</strong>. 
-        It’s designed to give you hands-on experience with algorithms and problem-solving, essential skills for modern communication professionals.
+        Plan your steps carefully and use these commands to navigate through obstacles.
       </p>
-      <p>Are you ready to take on the challenge? Let’s get started!</p>
+      
+      <h3>Intermediate</h3>
+      <p>Enhance your code with control structures and egg commands:</p>
+      <ul>
+        <li>
+          <strong>For-loops:</strong> Repeat a block of commands a set number of times.
+          <br>
+          <code>for 3:</code> (followed by indented commands)
+          <pre><code>for 3:
+        turn left
+        move</code></pre>
+        </li>
+        <li>
+          <strong>While-loops:</strong> Execute commands repeatedly as long as a condition is met.
+          <br>
+          <code>while front_clear:</code> (followed by indented commands)
+          <pre><code>while front_clear:
+        move</code></pre>
+        </li>
+        <li>
+          <strong>Egg Commands:</strong> 
+          <ul>
+            <li><code>lay egg</code>: Drop an egg on the current cell.</li>
+            <li><code>pick up egg</code>: Remove an egg from the current cell (if one exists).</li>
+          </ul>
+          Use these to mark your path or create patterns.
+        </li>
+      </ul>
+      
+      <h3>Expert</h3>
+      <p>Combine custom functions with loops and egg commands to solve challenging puzzles:</p>
+      <ul>
+        <li>
+          <strong>Custom Functions:</strong> Define your own set of commands to simplify complex sequences.
+          <br>
+          Define a function with:
+          <pre><code>function turn_right:
+        turn left
+        turn left
+        turn left</code></pre>
+          Then, call it in your main code by simply writing:
+          <pre><code>turn_right</code></pre>
+        </li>
+        <li>
+          Mix functions with loops and basic commands to create intricate patterns and sophisticated algorithms.
+        </li>
+      </ul>
+      <p>
+        Experiment and have fun on your algorithm adventure!
+      </p>
     </div>
+    
   </div>
   
   
