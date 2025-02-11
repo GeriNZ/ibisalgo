@@ -368,12 +368,6 @@ function animateMove(startX, startY, endX, endY, step = 0, callback) {
     player.y = endY;
     drawGrid();
     drawPlayer();
-
-    // Check if the player has reached the goal
-    if (player.x === goal.x && player.y === goal.y) {
-      showPopupMessage("🏆🌟 Congratulations! 🐦 Scarlet has reached UWI and can now start her journey into 🦉 computational thinking! 🌟🏆");
-    }
-
     callback();
   }
 }
@@ -412,51 +406,6 @@ document.getElementById('toggle-instructions').addEventListener('click', () => {
   }
 });
 
-
-// Function to show the custom modal with a message
-function showPopupMessage(message) {
-  const modal = document.getElementById('customModal');
-  const modalMessage = document.getElementById('modalMessage');
-  modalMessage.textContent = message;
-  modal.style.display = 'block';
-
-  // Trigger confetti
-  confetti({
-    particleCount: 150, // Number of confetti particles
-    spread: 90, // How far the particles spread
-    origin: { y: 0.6 }, // Start confetti from the bottom of the screen
-  });
-
-  // Optional: Continuous confetti for 3 seconds
-  const duration = 3 * 1000; // 3 seconds
-  const end = Date.now() + duration;
-
-  (function frame() {
-    confetti({
-      particleCount: 50, // Fewer particles per frame
-      spread: 70,
-      origin: { y: 0.6 },
-    });
-
-    if (Date.now() < end) {
-      requestAnimationFrame(frame); // Keep firing confetti
-    }
-  })();
-}
-
-// Close the modal when the close button is clicked
-document.getElementById('closeModal').onclick = function () {
-  const modal = document.getElementById('customModal');
-  modal.style.display = 'none';
-};
-
-// Close the modal when clicking outside the modal content
-window.onclick = function (event) {
-  const modal = document.getElementById('customModal');
-  if (event.target === modal) {
-    modal.style.display = 'none';
-  }
-};
 // -------------------- Running the Code --------------------
 
 document.getElementById('runCode').addEventListener('click', () => {

@@ -11,6 +11,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Agu+Display&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Agu+Display:wght@400;700&display=swap" rel="stylesheet">
+
+</body>
 </head>
 <body>
   <h1 class="agu-display">Algorithm Game</h1>
@@ -100,11 +102,18 @@ else:
     </div>
     
   </div>
-  
+  <!-- Add this HTML structure to your existing HTML file -->
+<div id="customModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal" class="close">&times;</span>
+    <p id="modalMessage"></p>
+  </div>
+</div>
   
   <canvas id="gameCanvas" width="500" height="500"></canvas>
   <textarea id="codeInput" placeholder="Write your commands here..."></textarea>
   <button id="runCode">Run Code</button>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="script.js"></script>
-</body>
+ 
 </html>
